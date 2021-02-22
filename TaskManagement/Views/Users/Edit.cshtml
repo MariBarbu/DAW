@@ -1,0 +1,46 @@
+﻿@model TaskManagement.Models.ApplicationUser
+@{
+    ViewBag.Title = "Edit User";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Users", routeValues: new { id = @Model.Id }))
+{
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    <br />
+    <i class="glyphicon glyphicon-user"></i>
+    @Html.Label("UserName", "User Name", new { @class = "" })
+    <br />
+    @Html.EditorFor(m => m.UserName)
+    <br /><br />
+    <i class="glyphicon glyphicon-envelope"></i>
+    @Html.Label("Email", "User Email", new { @class = "" })
+    <br />
+    @Html.EditorFor(m => m.Email)
+    <br /><br />
+    <i class="glyphicon glyphicon-phone"></i>
+    @Html.Label("PhoneNumber", "Phone Number")
+    <br />
+    @Html.EditorFor(m => m.PhoneNumber)
+    <br /><br />
+    <i class="glyphicon glyphicon-briefcase"></i>
+    <label>Select a team to add this user to!</label>
+    @Html.DropDownListFor(m=>m.TeamId,
+                           new SelectList(Model.TeamNames,"Value","Text"),
+                           "Select a team to add this user to!",
+                           new { @class="form-control"})
+
+ 
+    <br /><br />
+    <i class="glyphicon glyphicon-th-list"></i>
+    <label>Select role</label>
+    @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value", "Text",
+   ViewBag.userRole), null, new { @class = "form-control" })
+    
+    <br /><br />
+
+    <button class="btn btn-sm btn-success" id="butona" type="submit">
+        Edit User Specifications
+    </button>
+}

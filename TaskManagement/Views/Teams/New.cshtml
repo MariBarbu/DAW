@@ -1,0 +1,22 @@
+﻿@model TaskManagement.Models.Team
+@{
+    ViewBag.Title = "New";
+}
+<h2>Add a New Team</h2>
+
+<form method="post" action="/Teams/New">
+    @Html.Label("TeamName", "Team Name")
+    <br />
+    @Html.TextBox("TeamName", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.TeamName, null, new { @class = "text-danger " })
+    <br /><br />
+    @Html.Label("Motto", "Motto")
+    <br />
+    @Html.TextArea("Motto", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Motto, null, new { @class = "text-danger " })
+    <br /><br />
+    @Html.Hidden("UserId")
+    <button class="btn btn-sm btn-success" id="butona" type="submit">Add Team</button>
+</form>
+
+

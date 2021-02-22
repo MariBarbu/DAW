@@ -1,0 +1,101 @@
+﻿@model TaskManagement.Models.Project
+@{
+    ViewBag.Title = "Show";
+}
+
+<br />
+<a href="/Projects/Index">Back to Projects List</a>
+<br />
+<h2>@ViewBag.Message</h2>
+<br />
+<h2 class="font-title" style="text-align:center">@Model.ProjectTitle</h2>
+<br /><br />
+<p><strong>Project Description :</strong></p>
+<p class="font-content">@Model.Description</p>
+<p><strong>Project Deadline :</strong></p>
+<p><strong>@Model.ProjectDeadline</strong></p>
+
+<i class="glyphicon glyphicon-user"></i> <i>Project organized by</i>
+<strong>@Model.User.UserName</strong><br />
+<br />
+@if (Model.TeamId == 1)
+{
+    <i class="glyphicon glyphicon-briefcase"></i>@:This project has not been assigned to any team yet.<span class="label label-default"></span>
+}
+else
+{
+    foreach (var team in ViewBag.ListOfTeams)
+    {
+        if (team.Value == Model.TeamId.ToString())
+        {
+            <i class="glyphicon glyphicon-briefcase"></i>@:This has been assigned to <span class="label label-default">@team.Text</span>
+
+
+        }
+    }
+}
+
+
+@if (ViewBag.showButtons == true && Model.UserId == ViewBag.currentUser || ViewBag.isAdmin)
+{
+    <br />
+    <br />
+    <a class="btn btn-success pull-left" id="butona" href="/Projects/Edit/@Model.ProjectId">Edit Project</a>
+    <form method="post" action="/Projects/Delete/@Model.ProjectId">
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-danger pull-right" id="butond" type="submit">Delete Project</button>
+    </form>
+}
+
+
+<br />
+<br />
+<h3 class="font-title">List of Tasks :</h3>
+<br />
+
+@foreach (var task in Model.Tasks)
+{
+    if (task.TaskStatus == "Not Started")
+    {
+        <div class="task-not-started">
+            <h4 class="font-content">@task.TaskName</h4>
+            <a href="/Tasks/Show/@task.TaskId">Task Details</a>
+            <br />
+            <i class="glyphicon glyphicon-user"></i> <i>Task assigned by</i>
+            <strong>@task.User.UserName</strong>
+        </div>
+    }
+    if (task.TaskStatus == "In Progress")
+    {
+        <div class="task-in-progress">
+            <h4 class="font-content">@task.TaskName</h4>
+            <a href="/Tasks/Show/@task.TaskId">Task Details</a>
+            <br />
+            <i class="glyphicon glyphicon-user"></i> <i>Task assigned by</i>
+            <strong>@task.User.UserName</strong>
+        </div>
+    }
+    if (task.TaskStatus == "Completed")
+    {
+        <div class="task-completed">
+            <h4 class="font-content">@task.TaskName</h4>
+            <a href="/Tasks/Show/@task.TaskId">Task Details</a>
+            <br />
+            <i class="glyphicon glyphicon-user"></i> <i>Task assigned by</i>
+            <strong>@task.User.UserName</strong>
+        </div>
+    }
+
+
+    <br />
+    <hr />
+}
+
+@if (ViewBag.showButtons == true && Model.UserId == ViewBag.currentUser || ViewBag.isAdmin)
+{
+    <br />
+    <a class="btn btn-primary" id="butona" href="/Tasks/New/@Model.ProjectId">Add a New Task</a>
+}
+
+
+

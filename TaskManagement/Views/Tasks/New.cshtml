@@ -1,0 +1,50 @@
+﻿@model TaskManagement.Models.Taskk
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add a New Task</h2>
+
+<form method="post" action="/Tasks/New">
+    @Html.Label("TaskName", "Task Name")
+    <br />
+
+    @Html.TextBox("TaskName", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.TaskName, null, new { @class = "text-danger " })
+
+    <br />
+    <br />
+    @Html.Label("TaskContent", "Task Content")
+    <br />
+
+    @Html.TextArea("TaskContent", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.TaskContent, null, new { @class = "text-danger " })
+
+    <br />
+    <br />
+    @Html.Label("TaskStartDate", "Task Start Date")
+    <br />
+    @Html.TextBoxFor(m => m.TaskStartDate, new { @type = "date" })
+    @Html.ValidationMessageFor(m => m.TaskStartDate, null, new { @class = "text-danger " })
+
+    <br />
+    <br />
+    @Html.Label("TaskDeadline", "Task Deadline")
+    <br />
+    @Html.TextBoxFor(m => m.TaskDeadline, new { @type = "date" })
+    @Html.ValidationMessageFor(m => m.TaskDeadline, null, new { @class = "text-danger " })
+
+    <br />
+    <br />
+    <label>Task Status</label>
+    <select name="TaskStatus">
+        <option value="Not Started">Not Started</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+    </select>
+    <br />
+    <br />
+    @Html.Hidden("ProjectId")
+    <button class="btn btn-sm btn-success" id="butona" type="submit">Add Task</button>
+</form>
+

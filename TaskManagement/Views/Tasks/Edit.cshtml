@@ -1,0 +1,71 @@
+﻿@model TaskManagement.Models.Taskk
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit this task!</h2>
+
+<form method="post" action="/Tasks/Edit/@Model.TaskId">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    @Html.Label("TaskName", "Task Name")
+    <br />
+    @Html.EditorFor(m => m.TaskName)
+    @Html.ValidationMessageFor(m => m.TaskName, null, new { @class = "text-danger " })
+    <br />
+    <br />
+    @Html.Label("TaskContent", "Task Content")
+    <br />
+    @Html.Editor("TaskContent", new { htmlAttributes = new { @class = "control-form" } })
+    @Html.ValidationMessageFor(m => m.TaskContent, null, new { @class = "text-danger " })
+    <br />
+    <br />
+    @Html.Label("TaskStartDate", "Task Start Date")
+    <br />
+    @Html.EditorFor(m => m.TaskStartDate, new { htmlAttributes = new { @type = "date" } })
+    @Html.ValidationMessageFor(m => m.TaskStartDate, null, new { @class = "text-danger " })
+
+    <br />
+    <br />
+    @Html.Label("TaskDeadline", "Task Deadline")
+    <br />
+    @Html.EditorFor(m => m.TaskDeadline, new { htmlAttributes = new { @type = "date" } })
+    @Html.ValidationMessageFor(m => m.TaskDeadline, null, new { @class = "text-danger " })
+
+    <br />
+    <br />
+    <label>Task Status</label>
+    <select name="TaskStatus">
+        <option @{ if (Model.TaskStatus == "Not Started") { @: selected="selected"
+                } }
+                value="Not Started">
+            Not Started
+        </option>
+        <option @{ if (Model.TaskStatus == "In Progress") { @: selected="selected"
+                } }
+                value="In Progress">
+            In Progress
+        </option>
+        <option @{ if (Model.TaskStatus == "Completed") { @: selected="selected"
+                } }
+                value="Completed">
+            Completed
+        </option>
+    </select>
+    <br />
+    <br />
+    <label>Select an user to assign this task to!</label>
+    @Html.DropDownListFor(m=>m.AssignedUserId,
+                           new SelectList(Model.UserNames,"Value","Text"),
+                           "Select an user to assign this task to!",
+                           new { @class="form-control"})
+
+    <br /><br />
+
+    @Html.Hidden("ProjectId")
+    @Html.Hidden("TaskId")
+    <br />
+
+
+    <button class="btn btn-sm btn-success" id="butona" type="submit">Edit Task</button>
+</form>
+

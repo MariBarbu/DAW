@@ -1,0 +1,26 @@
+﻿
+@model TaskManagement.Models.Team
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit this Team</h2>
+
+<form method="post" action="/Teams/Edit/@Model.TeamId">
+    @Html.HttpMethodOverride(HttpVerbs.Put)
+    <br />
+    @Html.HiddenFor(m => m.TeamId)
+    @Html.Label("TeamName", "Team Name")
+    <br />
+    @Html.EditorFor(m => m.TeamName)
+    @Html.ValidationMessageFor(m => m.TeamName, null, new { @class = "text-danger " })
+
+    <br /><br />
+    @Html.Label("Motto", "Motto")
+    <br />
+    @Html.Editor("Motto", new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(m => m.Motto, null, new { @class = "text-danger " })
+    <br /><br />
+    <button class="btn btn-sm btn-success" id="butona" type="submit">Edit Team</button>
+</form>
+

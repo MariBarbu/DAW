@@ -1,0 +1,99 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Old+Standard+TT&family=Rokkitt:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400&display=swap');
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #edf2f4;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.navbar{
+    background-color:#dadada;
+    border:none;
+    box-shadow:0 6px 12px #dadada;
+}
+
+.navbar a {
+    color: #1abc9c;
+}
+
+.navbar a:hover {
+    color: #01a3a4;
+}
+
+.font-logo {
+    font-family: 'Bangers', cursive;
+}
+
+.font-title {
+    font-family: 'Rokkitt', serif;
+}
+
+.font-content {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.footer {
+    left: 0;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    background-color: #1abc9c;
+    padding: 4px;
+    margin: 0px;
+}
+
+.task-not-started {
+    background-color: #9e2a2b;
+}
+.task-in-progress {
+    background-color: #e09f3e;
+}
+.task-completed {
+    background-color: #007f5f;
+}
+#buton {
+    background-color: #1c5f8a !important;
+}
+    #buton:hover {
+        background-color: #3498db !important;
+    }
+#butond {
+    background-color: #ac3e39 !important;
+}
+    #butond:hover {
+        background-color: #e74c3c !important;
+    }
+#butona {
+    background-color: #117e68 !important;
+}
+    #butona:hover {
+        background-color: #16a286 !important;
+    }
+
+.box {
+    background-color: #dee2e6;
+    width: 80%;
+    margin-left: 10%;
+    padding: 10px;
+    border: 2px solid #117e68;
+}

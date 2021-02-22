@@ -1,0 +1,74 @@
+﻿@model TaskManagement.Models.Team
+@{
+    ViewBag.Title = "Show";
+}
+<br />
+<a href="/Teams/Index">Back to Teams List</a>
+<br />
+<h2>@ViewBag.Message</h2>
+<br />
+<h2 class="font-title">Team @Model.TeamId</h2>
+<h2 class="font-title">@Model.TeamName</h2>
+<p class="font-content"> Motto : @Model.Motto</p>
+<i class="glyphicon glyphicon-user"></i> <i>Team created by</i>
+<strong>@Model.User.UserName</strong>
+<br />
+<br />
+<hr />
+@if (ViewBag.showButtons == true && Model.UserId == ViewBag.currentUser || ViewBag.isAdmin)
+{
+
+    <a class="btn btn-success pull-left" id="butona" href="/Teams/Edit/@Model.TeamId">Edit Team</a>
+    <form method="post" action="/Teams/Delete/@Model.TeamId">
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button class="btn btn-danger pull-right" id="butond" type="submit">Delete Team</button>
+    </form>
+    <br />
+    <br />
+    <hr />
+}
+
+<h2 class="font-title">~List of Members~</h2>
+<br />
+<hr />
+<br />
+@foreach (var user in ViewBag.Users)
+{
+    <div class="panel-heading">User Name : @user.UserName</div>
+    <div class="panel-body">
+        <i class="glyphicon glyphicon-envelope"></i> User Email : <span class="label label-default">@user.Email</span>
+        <br /><br />
+
+        @if (user.PhoneNumber != null)
+        {
+            <i class="glyphicon glyphicon-phone"></i>@:Phone Number : <span class="label label-default">@user.PhoneNumber</span>
+            <br />
+        }
+    </div>
+    <br /><br />
+}
+
+<hr />
+
+<h2 class="font-title">~List of Projects~</h2>
+<br />
+<hr />
+<br />
+@foreach (var project in ViewBag.Projects)
+{
+    <hr />
+    <h2 class="font-title">@project.ProjectTitle</h2>
+    <p class="font-content">@project.Description</p>
+
+    //<i class="glyphicon glyphicon-user"></i> <i>Project organized by</i>
+    //<strong>@project.User.UserName</strong>
+    <br />
+    <br />
+    <a class="btn btn-success pull-left" id="buton" href="/Projects/Show/@project.ProjectId">Displaying Project</a>
+    <br />
+    <hr />
+    <br />
+    <br />
+    
+
+}

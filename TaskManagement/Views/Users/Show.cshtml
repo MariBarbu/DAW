@@ -1,0 +1,56 @@
+﻿@model TaskManagement.Models.ApplicationUser
+@{
+    ViewBag.Title = "Show User";
+}
+<a href="/Users/Index">Back to Users List</a>
+<br />
+
+<ol class="breadcrumb">
+    <li><h3>@ViewBag.Title</h3></li>
+</ol>
+
+<h2>User Name : @Model.UserName</h2>
+
+<div class="panel-body">
+    <i class="glyphicon glyphicon-envelope"></i> User Email : <span class="label label-default">@Model.Email</span>
+    <br /><br />
+
+    @if (@Model.PhoneNumber != null)
+    {
+        <i class="glyphicon glyphicon-phone"></i>@:Phone Number : <span class="label label-default">@Model.PhoneNumber</span>
+        <br />
+        <br />
+    }
+
+    <i class="glyphicon glyphicon-th-list">Role : @ViewBag.roleName</i>
+    <br /><br />
+    @if (Model.TeamId == 0)
+    {
+        <i class="glyphicon glyphicon-briefcase"></i>@:This user is not a part of a team yet.<span class="label label-default"></span>
+    }
+    else
+    {
+        foreach (var team in ViewBag.ListOfTeams)
+        {
+            if (team.Value == Model.TeamId.ToString())
+            {
+                <i class="glyphicon glyphicon-briefcase"></i>@:This user is a part of <span class="label label-default">@team.Text</span>
+
+            }
+        }
+    }
+</div>
+
+@if((string)Model.Id != ViewBag.currentUser)
+{
+   <div class="panel-footer">
+
+       @using(Html.BeginForm(actionName:"Delete",controllerName:"Users",routeValues: new { id=@Model.Id}))
+       {
+           @Html.HttpMethodOverride(HttpVerbs.Delete)
+           <br />
+           <button class="btn btn-danger" id="butond" type="submit">Delete User</button>
+       }
+
+   </div>
+}

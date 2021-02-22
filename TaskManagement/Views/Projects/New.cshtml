@@ -1,0 +1,27 @@
+﻿@model TaskManagement.Models.Project
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Add a New Project</h2>
+
+<form method="post" action="/Projects/New">
+    @Html.Label("ProjectTitle", "Project Title")
+    <br />
+    @Html.TextBox("ProjectTitle", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.ProjectTitle, null, new { @class = "text-danger " })
+    <br /><br />
+    @Html.Label("Description", "Project Description")
+    <br />
+    @Html.TextArea("Description", null, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger " })
+
+    <br /><br />
+    @Html.Label("ProjectDeadline", "Project Deadline")
+    <br />
+    @Html.TextBoxFor(m => m.ProjectDeadline, new { @type = "date" })
+    @Html.ValidationMessageFor(m => m.ProjectDeadline, null, new { @class = "text-danger " })
+    <br /><br />
+    @Html.Hidden("TeamId")
+    <button class="btn btn-sm btn-success" id="butona"type="submit">Add Project</button>
+</form>

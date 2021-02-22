@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<h2 style="text-align:center" class="font-title">List of Teams</h2>
+<br />
+<hr />
+<h2>@ViewBag.Message</h2>
+<br />
+<hr />
+
+@foreach (var team in ViewBag.Teams)
+{
+    if (team.TeamId == ViewBag.teamId || ViewBag.rolul==1)
+    {
+        <h2 class="font-title">Team @team.TeamId</h2>
+        <h2 class="font-title">@team.TeamName</h2>
+        <p class="font-content">@team.Motto</p>
+
+        <i class="glyphicon glyphicon-user"></i> <i>Team created by</i>
+        <strong>@team.User.UserName</strong>
+        <br />
+        <br />
+        <a class="btn btn-success pull-left" id="buton" href="/Teams/Show/@team.TeamId">Displaying Team</a>
+
+        <br />
+        <hr />
+        <br />
+    }
+}
+<br />
+<hr />
+<a class="btn btn-primary" id="butona" href="/Teams/New">Add Team</a>
+<br />
+<hr />
+<br />

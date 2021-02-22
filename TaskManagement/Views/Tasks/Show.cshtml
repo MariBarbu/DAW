@@ -1,0 +1,127 @@
+﻿@model TaskManagement.Models.Taskk
+@{
+
+    ViewBag.Title = "Show";
+}
+<h2>@ViewBag.Message</h2>
+<br />
+<hr />
+<br />
+<form method="post" action="/Tasks/Show/@Model.TaskId">
+    <h2 class="font-title">Task Details</h2>
+
+    <br />
+    <a href="/Projects/Show/@Model.ProjectId">Back to Project</a>
+
+    <br />
+    <h2 class="font-title" style="text-align:center">@Model.TaskName</h2>
+    <br /><br />
+    <p><u><strong>Task Content :</strong></u></p>
+    <p class="font-content">@Model.TaskContent</p>
+
+    <hr />
+    <p><u><strong>Task start date :</strong></u></p>
+    <p><strong>@Model.TaskStartDate</strong></p>
+    <br />
+    <p><strong><u>Task deadline : </u></strong></p>
+    <p><strong>@Model.TaskDeadline</strong></p>
+    <hr />
+    <p><strong><u>Task status is :</u> @Model.TaskStatus</strong></p>
+    <hr />
+    <br />
+    @if (Model.AssignedUserId == "test")
+    {
+        <p>This task has not been assigned to anyone yet. </p>
+    }
+    else
+    {
+        foreach (var user in ViewBag.ListOfUsers)
+        {
+            if (user.Value == Model.AssignedUserId)
+            {
+                <i class="glyphicon glyphicon-briefcase"></i>@:This task has been assigned to <span class="label label-default">@user.Text</span>
+
+
+            }
+        }
+    }
+
+    <br />
+    <hr />
+    <i class="glyphicon glyphicon-user"></i> <i>Task assigned by</i>
+    <strong>@Model.User.UserName</strong>
+    <br />
+
+
+</form>
+<hr />
+
+<br />
+<a class="btn btn-info" id="butona" href="/Tasks/Edit/@Model.TaskId">Edit Task</a>
+
+<form method="post" action="/Tasks/Delete/@Model.TaskId">
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button class="btn btn-danger pull-right" id="butond" type="submit">Delete Task</button>
+</form>
+<br />
+<hr />
+<br />
+<h3 style="text-align:center">~Comments~</h3>
+<br />
+<hr />
+@foreach (var comm in Model.Comments)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+
+                <div>
+                    <p class="font-content">@comm.CommentContent</p>
+                    <small class="pull-right">@comm.CommentDate</small>
+                    <i class="glyphicon glyphicon-user"></i> <i>Comment written by</i>
+                    <strong>@comm.User.UserName</strong>
+                </div>
+
+                @if (ViewBag.currentUsert == comm.UserId || ViewBag.isAdmint)
+                {
+                    <div style="display: inline-block; float : left; margin-right: 15px">
+                        <a class="glyphicon glyphicon-pencil" href="/Comments/Edit/@comm.CommentId"></a>
+                    </div>
+                    <div style="display: inline-block; float : left">
+                        <form method="post" action="/Comments/Delete/@comm.CommentId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                        </form>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <hr />
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="panel">
+                <form method="post" action="/Tasks/Show/@Model.TaskId">
+                    <div class="panel-body">
+                        <input type="hidden" name="TaskId" value="@Model.TaskId" />
+                        <label>Comment Content</label>
+                        <br />
+                        <textarea class="form-control" name="CommentContent"></textarea>
+                        @Html.ValidationMessage("CommentContent", "", new { @class = "text-danger" })
+                        <br />
+                        <button class="btn btn-success " id="butona" type="submit">Add Comment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="text-align:center" class="font-title">List of Projects</h2>
+<br />
+<hr />
+<h2>@ViewBag.Message</h2>
+<br />
+<hr />
+
+@foreach (var project in ViewBag.Projects)
+{
+    if (project.TeamId == ViewBag.currentTeamId || ViewBag.isAdminp)
+    {
+        <div class="box">
+            <h2 class="font-title">@project.ProjectTitle</h2>
+            <i class="glyphicon glyphicon-user"></i> <i>Project organized by</i>
+            <strong>@project.User.UserName</strong>
+            <br />
+            <br />
+            <a class="btn btn-success pull-left" id="buton" href="/Projects/Show/@project.ProjectId">Displaying Project</a>
+
+            @if (ViewBag.showButtonsp == true && project.UserId == ViewBag.currentUserp || ViewBag.isAdminp)
+            {
+            <form method="post" action="/Projects/Delete/@project.ProjectId">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-danger pull-right" id="butond" type="submit">Delete Project</button>
+            </form>
+            }
+            <br />
+            <br />
+        </div>
+        
+        <hr />
+        <br />
+    }
+
+}
+<br />
+<hr />
+<a class="btn btn-primary" id="butona" href="/Projects/New">Add Project</a>
+<br />
+<hr />
+<br />
